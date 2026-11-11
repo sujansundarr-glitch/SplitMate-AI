@@ -171,43 +171,7 @@ if __name__ == "__main__":
     import uvicorn
     uvicorn.run("main:app", host="127.0.0.1", port=8000, reload=True)
 
-# EXPENSE ANALYTICS API
 
-@app.get("/api/analytics")
-def get_expense_analytics():
-
-    expenses = load_expenses()
-
-    total_spending = sum(
-        float(expense.get("total", 0))
-        for expense in expenses
-    )
-
-    category_totals = {}
-
-    for expense in expenses:
-        category = expense.get("category", "Other")
-        amount = float(expense.get("total", 0))
-
-        category_totals[category] = (
-            category_totals.get(category, 0) + amount
-        )
-
-    highest_expense = max(
-        expenses,
-        key=lambda expense: float(expense.get("total", 0)),
-        default=None
-    )
-
-    return {
-        "total_spending": round(total_spending, 2),
-        "total_transactions": len(expenses),
-        "average_expense": round(
-            total_spending / len(expenses), 2
-        ) if expenses else 0,
-        "category_totals": category_totals,
-        "highest_expense": highest_expense
-    }
 # EXPENSE ANALYTICS API
 
 @app.get("/api/analytics")

@@ -1,0 +1,193 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>SplitMate AI — Shared expenses, simplified</title>
+  <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+  <div class="shell">
+    <aside class="sidebar">
+      <div class="brand"><span class="brand-mark">S</span><span>splitmate<span class="accent">.</span></span></div>
+      <p class="side-label">WORKSPACE</p>
+      <a class="nav active" href="#overview">◫ &nbsp; Overview</a>
+      <a class="nav" href="#splitter">↗ &nbsp; Split an expense</a>
+      <a class="nav" href="#receipt">▤ &nbsp; Bill preview</a>
+      <a class="nav" href="#history">📜 &nbsp; Expense History</a>
+      <div class="side-bottom"><div class="avatar">SM</div><div><b>My workspace</b><small>Personal account</small></div></div>
+    </aside>
+
+    <main class="main" id="overview">
+      <header class="topbar"><div><span class="eyebrow">YOUR MONEY, IN SYNC</span><h1>Good things are better <span class="gradient">shared.</span></h1><p class="muted">Keep group expenses clear, fair, and simple.</p></div><div class="top-pill"><span class="live-dot"></span> Prototype mode</div></header>
+
+      <section class="stats">
+        <article class="stat-card"><div class="stat-icon purple">₹</div><span class="muted">Example group spend</span><strong>₹2,400</strong><small>Sample amount</small></article>
+        <article class="stat-card"><div class="stat-icon blue">◎</div><span class="muted">Group members</span><strong id="memberCount">4</strong><small>In this split</small></article>
+        <article class="stat-card"><div class="stat-icon green">✓</div><span class="muted">Split status</span><strong>Ready</strong><small>Calculate below</small></article>
+      </section>
+
+      <section class="content-grid">
+        <article class="panel" id="splitter">
+          <div class="panel-heading"><div><span class="eyebrow">QUICK CALCULATOR</span><h2>Split an expense</h2></div><span class="tag">Equal split</span></div>
+          <label for="expenseName">What was it for?</label>
+          <input id="expenseName" value="Dinner with friends" maxlength="60">
+          <label for="category">Expense category</label>
+<select id="category" style="width:100%; padding:12px; margin-bottom:15px; border-radius:10px;">
+    <option value="Food">🍕 Food & Dining</option>
+    <option value="Transport">🚕 Transport</option>
+    <option value="Accommodation">🏨 Accommodation</option>
+    <option value="Shopping">🛍️ Shopping</option>
+    <option value="Entertainment">🎬 Entertainment</option>
+    <option value="Other">📦 Other</option>
+</select>
+          <label for="total">Total amount (₹)</label>
+          <div class="amount-wrap"><span>₹</span><input id="total" type="number" min="0.01" step="0.01" value="2400"></div>
+          <div class="members-head"><label>Who's sharing?</label><span class="muted" id="memberHint">4 people</span></div>
+          <div id="members" class="members">
+            <div class="member-row"><span class="person-dot">A</span><input aria-label="Member name" value="Asha"><button class="remove" title="Remove member">×</button></div>
+            <div class="member-row"><span class="person-dot">R</span><input aria-label="Member name" value="Ravi"><button class="remove" title="Remove member">×</button></div>
+            <div class="member-row"><span class="person-dot">M</span><input aria-label="Member name" value="Mina"><button class="remove" title="Remove member">×</button></div>
+            <div class="member-row"><span class="person-dot">D</span><input aria-label="Member name" value="Dev"><button class="remove" title="Remove member">×</button></div>
+          </div>
+          <button class="add-btn" id="addMember">＋ Add another person</button>
+          <button class="primary-btn" id="calculate">Calculate my split <span>→</span></button>
+          <p class="fine-print">Calculations are performed by the Python backend. Review the amounts before settling up.</p>
+        </article>
+
+        <article class="panel result-panel">
+          <div class="panel-heading"><div><span class="eyebrow">YOUR BREAKDOWN</span><h2>Each person's share</h2></div><span class="sparkle">✦</span></div>
+          <div class="total-box"><span>Total expense</span><strong id="resultTotal">₹2,400.00</strong><small id="resultSubtitle">Dinner with friends · 4 people</small></div>
+          <div id="results" class="results">
+            <div class="result-row"><span><i class="mini-avatar">A</i>Asha</span><b>₹600.00</b></div>
+            <div class="result-row"><span><i class="mini-avatar">R</i>Ravi</span><b>₹600.00</b></div>
+            <div class="result-row"><span><i class="mini-avatar">M</i>Mina</span><b>₹600.00</b></div>
+            <div class="result-row"><span><i class="mini-avatar">D</i>Dev</span><b>₹600.00</b></div>
+          </div>
+          <div class="notice"><span>✧</span><p><b>Fair by design</b><br>Any rounding remainder is assigned one paise at a time so the shares add up exactly to the total.</p></div>
+        </article>
+      </section>
+
+      <section class="content-grid lower-grid">
+        <article class="panel" id="receipt"><div class="panel-heading"><div><span class="eyebrow">BILL ASSISTANT</span><h2>Preview a bill</h2></div><span class="tag">Image preview</span></div>
+          <label class="upload" for="billFile"><span class="upload-icon">↑</span><b>Choose a bill image</b><small>JPG, PNG or WEBP · preview only</small><input id="billFile" type="file" accept="image/*"></label>
+          <div id="previewArea" class="preview-area">Your selected image preview will appear here.</div>
+          <p class="fine-print">OCR and AI extraction are not connected in this prototype. No image is sent to a server.</p>
+        </article>
+        <article class="panel payment-panel"><div class="panel-heading"><div><span class="eyebrow">SETTLE UP</span><h2>Payments</h2></div><span class="tag muted-tag">Coming next</span></div>
+          <div class="payment-placeholder"><div class="pay-icon">↗</div><b>PayPal payment flow</b><p>Sandbox checkout is not connected yet. This panel is a placeholder, not a working payment button.</p></div>
+          <div class="secure-line">◇ &nbsp; Payment integration planned with PayPal Sandbox</div>
+        </article>
+      </section>
+      <!-- EXPENSE HISTORY -->
+<section class="panel history-section" id="history">
+
+  <div class="panel-heading">
+    <div>
+      <span class="eyebrow">YOUR TRANSACTIONS</span>
+      <h2>📜 Expense History</h2>
+    </div>
+    <span class="tag">Saved expenses</span>
+  </div>
+
+  <div class="history-summary">
+
+    <div class="history-stat">
+      <span>Total Transactions</span>
+      <h2 id="historyCount">0</h2>
+    </div>
+
+    <div class="history-stat">
+      <span>Total Spending</span>
+      <h2 id="historyTotal">₹0</h2>
+    </div>
+
+  </div>
+
+  <div class="history-controls">
+
+    <input
+      type="text"
+      id="historySearch"
+      placeholder="🔍 Search expenses..."
+    >
+
+    <select id="historyCategory">
+      <option value="All">All Categories</option>
+      <option value="Food">Food</option>
+      <option value="Transport">Transport</option>
+      <option value="Accommodation">Accommodation</option>
+      <option value="Shopping">Shopping</option>
+      <option value="Entertainment">Entertainment</option>
+      <option value="Other">Other</option>
+    </select>
+    <button type="button" id="exportHistory">
+  📤 Export CSV
+</button>
+
+
+  </div>
+
+  <div id="historyList">
+    <p>Loading expense history...</p>
+  </div>
+
+</section>
+<!-- EXPENSE ANALYTICS DASHBOARD -->
+<section class="panel analytics-section" id="analytics">
+
+  <div class="panel-heading">
+    <div>
+      <span class="eyebrow">SPENDING OVERVIEW</span>
+      <h2>📊 Expense Analytics</h2>
+    </div>
+    <span class="tag">Analytics</span>
+  </div>
+
+  <div class="analytics-grid">
+
+    <div class="analytics-card">
+      <span>Total Spending</span>
+      <h2 id="analyticsTotal">₹0</h2>
+    </div>
+
+    <div class="analytics-card">
+      <span>Total Transactions</span>
+      <h2 id="analyticsCount">0</h2>
+    </div>
+
+    <div class="analytics-card">
+      <span>Average Expense</span>
+      <h2 id="analyticsAverage">₹0</h2>
+    </div>
+
+    <div class="analytics-card">
+      <span>Highest Expense</span>
+      <h2 id="analyticsHighest">₹0</h2>
+      <p id="highestExpenseName">No expenses yet</p>
+    </div>
+
+  </div>
+
+  <div class="analytics-card category-analytics">
+    <h3>💰 Spending by Category</h3>
+    <div id="categoryBreakdown">
+      Loading analytics...
+    </div>
+  </div>
+  <!-- MONTHLY SPENDING CHART -->
+<div class="analytics-card monthly-analytics">
+  <h3>📅 Monthly Spending</h3>
+
+  <div id="monthlyBreakdown">
+    Loading monthly spending...
+  </div>
+</div>
+
+</section>
+<footer>SplitMate AI <span>·</span> A shared-expense prototype</footer>
+    </main>
+  </div>
+  <script src="/static/app.js"></script>
+</body>
+</html>
